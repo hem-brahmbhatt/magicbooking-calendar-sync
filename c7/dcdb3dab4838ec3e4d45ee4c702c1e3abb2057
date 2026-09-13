@@ -1,0 +1,19 @@
+infra/cloudwatch.tf
+  s_8ae43caf065a7c::t_a6b9deb343aab7 33-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c7dcdb3dab4838ec3e4d45ee4c702c1e3abb2057",
+  "prompts": {},
+  "sessions": {
+    "s_8ae43caf065a7c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-adb049bdd6939ac04",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
