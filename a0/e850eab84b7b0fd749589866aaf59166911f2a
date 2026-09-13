@@ -1,0 +1,21 @@
+src/magicbooking_sync/reconcile.py
+  s_bcff58533cbce6::t_bbfc0439a9d193 1-53
+tests/test_reconcile.py
+  s_bcff58533cbce6::t_55c8f672b9a06e 1-79
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a0e850eab84b7b0fd749589866aaf59166911f2a",
+  "prompts": {},
+  "sessions": {
+    "s_bcff58533cbce6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a6f2b6f7cf85c90ce",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
