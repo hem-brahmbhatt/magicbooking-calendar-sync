@@ -34,6 +34,7 @@ class GoogleCalendarClient:
         self._config = config
         self._http = httpx.Client(transport=transport, timeout=30.0)
         self._access_token_provider = access_token_provider or self._fetch_access_token
+        self._cached_token: Optional[str] = None
 
     def _fetch_access_token(self) -> str:
         credentials = Credentials(
@@ -46,8 +47,19 @@ class GoogleCalendarClient:
         credentials.refresh(GoogleAuthRequest())
         return credentials.token
 
+    def _get_token(self) -> str:
+        # Cache the access token for the lifetime of this client instance.
+        # A new GoogleCalendarClient is constructed per Lambda invocation
+        # (via calendar_client_factory(config.google) in handler.py), so
+        # this is safely per-invocation caching, not a stale-token risk
+        # across runs — without it, a sync with N bookings would do N+1
+        # full refresh-token round-trips to Google in one invocation.
+        if self._cached_token is None:
+            self._cached_token = self._access_token_provider()
+        return self._cached_token
+
     def _headers(self) -> dict:
-        return {"Authorization": f"Bearer {self._access_token_provider()}"}
+        return {"Authorization": f"Bearer {self._get_token()}"}
 
     def list_synced_events(self) -> list[SyncedEvent]:
         events = []

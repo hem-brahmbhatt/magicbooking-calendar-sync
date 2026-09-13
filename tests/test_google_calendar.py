@@ -251,6 +251,48 @@ def test_delete_event_calls_delete_on_event_id():
     assert captured["path"].endswith("/events/evt-1")
 
 
+def test_access_token_provider_is_called_only_once_per_client_instance():
+    token_calls = {"n": 0}
+
+    def access_token_provider():
+        token_calls["n"] += 1
+        return f"test-token-{token_calls['n']}"
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.headers["Authorization"] == "Bearer test-token-1"
+        if request.method == "GET":
+            return httpx.Response(200, json={"items": []})
+        return httpx.Response(200, json={"id": "evt-1"})
+
+    transport = httpx.MockTransport(handler)
+    client = GoogleCalendarClient(
+        CONFIG, transport=transport, access_token_provider=access_token_provider
+    )
+    booking = Booking(
+        date="2026-09-15",
+        start_time="08:00",
+        end_time="08:30",
+        session_name="Breakfast Club",
+        child_name="Alex",
+    )
+    event = SyncedEvent(
+        google_event_id="evt-1",
+        booking_id="abc123",
+        date="2026-09-15",
+        start_time="08:00",
+        end_time="08:30",
+        session_name="Breakfast Club",
+        child_name="Alex",
+    )
+
+    client.list_synced_events()
+    client.create_event(booking)
+    client.update_event(event, booking)
+    client.delete_event(event)
+
+    assert token_calls["n"] == 1
+
+
 def test_raises_on_http_error_status():
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(404, json={"error": "not found"})

@@ -56,7 +56,7 @@ resource "aws_lambda_function" "sync" {
   role             = aws_iam_role.lambda_exec.arn
   handler          = "magicbooking_sync.handler.lambda_handler"
   runtime          = "python3.12"
-  timeout          = 60
+  timeout          = 180
   filename         = data.archive_file.lambda_zip.output_path
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
