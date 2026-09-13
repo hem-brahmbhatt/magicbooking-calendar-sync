@@ -77,3 +77,30 @@ def test_mixed_create_update_delete_in_one_run():
     assert actions.to_create == [to_be_created]
     assert actions.to_update == [(to_be_updated_event, to_be_updated_new)]
     assert actions.to_delete == [to_be_deleted_event]
+
+
+def test_duplicate_synced_events_for_same_booking_id_keep_one_delete_rest():
+    booking = _booking()
+    first_event = _synced_event_for(booking, google_event_id="evt-first")
+    duplicate_event = _synced_event_for(booking, google_event_id="evt-duplicate")
+
+    actions = reconcile(
+        scraped_bookings=[booking], synced_events=[first_event, duplicate_event]
+    )
+
+    assert actions.to_create == []
+    assert actions.to_update == []
+    assert actions.to_delete == [duplicate_event]
+
+
+def test_duplicate_scraped_bookings_with_same_booking_id_create_only_one():
+    booking = _booking()
+    duplicate_booking = _booking()  # identical fields -> identical booking_id
+
+    actions = reconcile(
+        scraped_bookings=[booking, duplicate_booking], synced_events=[]
+    )
+
+    assert actions.to_create == [booking]
+    assert actions.to_update == []
+    assert actions.to_delete == []

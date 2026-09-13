@@ -30,13 +30,32 @@ def reconcile(
 ) -> ReconcileActions:
     """Diff freshly-scraped bookings against previously-synced Calendar
     events, keyed by Booking.booking_id, and return the actions needed to
-    make the calendar match the bookings exactly."""
-    events_by_id = {event.booking_id: event for event in synced_events}
-    bookings_by_id = {booking.booking_id: booking for booking in scraped_bookings}
+    make the calendar match the bookings exactly.
+
+    Self-healing against duplicate booking_ids on either side: only one
+    calendar event should ever exist per booking_id, so any extra synced
+    events sharing a booking_id are routed to to_delete, and any extra
+    scraped bookings sharing a booking_id are dropped (first one wins)
+    before computing to_create/to_update.
+    """
+    bookings_by_id: dict[str, Booking] = {}
+    for booking in scraped_bookings:
+        if booking.booking_id not in bookings_by_id:
+            bookings_by_id[booking.booking_id] = booking
+
+    events_by_id: dict[str, SyncedEvent] = {}
+    to_delete: list[SyncedEvent] = []
+    for event in synced_events:
+        if event.booking_id in events_by_id:
+            # Duplicate synced event for a booking_id we've already seen:
+            # only one calendar event should exist per booking_id.
+            to_delete.append(event)
+        else:
+            events_by_id[event.booking_id] = event
 
     to_create: list[Booking] = []
     to_update: list[tuple[SyncedEvent, Booking]] = []
-    for booking in scraped_bookings:
+    for booking in bookings_by_id.values():
         existing_event = events_by_id.get(booking.booking_id)
         if existing_event is None:
             to_create.append(booking)
@@ -46,8 +65,9 @@ def reconcile(
         ):
             to_update.append((existing_event, booking))
 
-    to_delete = [
-        event for event in synced_events if event.booking_id not in bookings_by_id
+    to_delete += [
+        event for event in events_by_id.values()
+        if event.booking_id not in bookings_by_id
     ]
 
     return ReconcileActions(to_create=to_create, to_update=to_update, to_delete=to_delete)
