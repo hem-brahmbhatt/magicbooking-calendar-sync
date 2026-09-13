@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from .google_calendar import GoogleCalendarConfig
 
@@ -10,7 +10,7 @@ SSM_PATH_PREFIX = "/magicbooking-calendar-sync/"
 class AppConfig:
     magicbooking_base_url: str
     magicbooking_username: str
-    magicbooking_password: str
+    magicbooking_password: str = field(repr=False)
     google: GoogleCalendarConfig
 
 

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Callable, Optional
 
 import httpx
@@ -14,8 +14,8 @@ CALENDAR_API_BASE = "https://www.googleapis.com/calendar/v3"
 @dataclass(frozen=True)
 class GoogleCalendarConfig:
     client_id: str
-    client_secret: str
-    refresh_token: str
+    client_secret: str = field(repr=False)
+    refresh_token: str = field(repr=False)
     calendar_id: str
 
 

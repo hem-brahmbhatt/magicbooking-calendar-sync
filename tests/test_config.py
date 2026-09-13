@@ -1,6 +1,27 @@
 import pytest
 
-from magicbooking_sync.config import load_config
+from magicbooking_sync.config import AppConfig, load_config
+from magicbooking_sync.google_calendar import GoogleCalendarConfig
+
+
+def test_repr_does_not_contain_secret_values():
+    config = AppConfig(
+        magicbooking_base_url="https://hurstprimary.magicbooking.co.uk",
+        magicbooking_username="parent@example.com",
+        magicbooking_password="super-secret-password",
+        google=GoogleCalendarConfig(
+            client_id="cid",
+            client_secret="super-secret-client-secret",
+            refresh_token="super-secret-refresh-token",
+            calendar_id="cal@x",
+        ),
+    )
+
+    representation = repr(config)
+
+    assert "super-secret-password" not in representation
+    assert "super-secret-client-secret" not in representation
+    assert "super-secret-refresh-token" not in representation
 
 
 def test_load_config_reads_from_environment(monkeypatch):
