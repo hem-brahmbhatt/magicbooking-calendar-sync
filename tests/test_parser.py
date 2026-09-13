@@ -67,3 +67,46 @@ def test_parse_bookings_dates_are_iso_formatted():
         assert len(year) == 4
         assert len(month) == 2
         assert len(day) == 2
+
+
+def test_parse_bookings_excludes_cancelled_rows():
+    # Synthetic snippet in the real #viewDatesBookedTable shape (not a
+    # change to the real fixture) — a cancelled booking that still appears
+    # in the portal's HTML must not become a synced calendar event, since
+    # reconciliation relies on "no longer in the scrape" to detect removals.
+    html = """
+    <html><body>
+    <table id="viewDatesBookedTable">
+    <thead>
+    <tr><th>Date</th><th>Day</th><th>Time</th><th>Session</th>
+    <th>Child(ren)</th><th>Status</th><th>Cost</th></tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>15/09/2026</td>
+    <td>Tue</td>
+    <td> 15:10 - 18:00</td>
+    <td>Autumn after school provision</td>
+    <td>Test Child</td>
+    <td><span class="badge badge-danger">Cancelled</span></td>
+    <td>£13.00</td>
+    </tr>
+    <tr>
+    <td>16/09/2026</td>
+    <td>Wed</td>
+    <td> 15:10 - 18:00</td>
+    <td>Autumn after school provision</td>
+    <td>Test Child</td>
+    <td><span class="badge badge-success">Accepted</span></td>
+    <td>£13.00</td>
+    </tr>
+    </tbody>
+    </table>
+    </body></html>
+    """
+
+    bookings = parse_bookings(html)
+
+    assert len(bookings) == 1
+    assert bookings[0].date == "2026-09-16"
+    assert all(b.date != "2026-09-15" for b in bookings)
