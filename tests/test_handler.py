@@ -1,3 +1,5 @@
+import pytest
+
 from magicbooking_sync.config import AppConfig
 from magicbooking_sync.google_calendar import GoogleCalendarConfig
 from magicbooking_sync.handler import run_sync
@@ -153,3 +155,33 @@ def test_run_sync_handles_mixed_create_update_delete_and_reports_summary():
     assert client.created == [new_booking]
     assert client.updated == [(stale_event_for_update, updated_booking)]
     assert client.deleted == [event_to_delete]
+
+
+def test_run_sync_raises_instead_of_wiping_calendar_when_scrape_returns_no_bookings():
+    existing_event = SyncedEvent(
+        google_event_id="evt-1", booking_id="some-booking-id",
+        date="2026-09-15", start_time="08:00", end_time="08:30",
+        session_name="Breakfast Club", child_name="Alex",
+    )
+
+    fake_client_holder = {}
+
+    def fake_calendar_client_factory(config):
+        client = FakeCalendarClient(config)
+        client._existing_events = [existing_event]
+        fake_client_holder["client"] = client
+        return client
+
+    with pytest.raises(RuntimeError):
+        run_sync(
+            CONFIG,
+            portal_login=lambda base_url, username, password: object(),
+            portal_fetch=lambda client: "<html>login page, session expired</html>",
+            parse=lambda html: [],
+            calendar_client_factory=fake_calendar_client_factory,
+        )
+
+    client = fake_client_holder["client"]
+    assert client.created == []
+    assert client.updated == []
+    assert client.deleted == []

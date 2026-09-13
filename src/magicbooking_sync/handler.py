@@ -46,6 +46,12 @@ def run_sync(
     calendar_client = calendar_client_factory(config.google)
     existing_events = calendar_client.list_synced_events()
 
+    if not bookings and existing_events:
+        raise RuntimeError(
+            f"Scrape returned 0 bookings but {len(existing_events)} events are "
+            "synced — refusing to wipe the calendar; portal markup likely changed"
+        )
+
     actions = reconcile(scraped_bookings=bookings, synced_events=existing_events)
 
     for booking in actions.to_create:
