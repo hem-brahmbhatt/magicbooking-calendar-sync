@@ -1,0 +1,19 @@
+infra/lambda.tf
+  s_42b655f071e05a::t_f97c8fe685ca64 7-10,39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "63a716ffc871421adcdb5b11d07fa7c7d30aa82d",
+  "prompts": {},
+  "sessions": {
+    "s_42b655f071e05a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a3b6101cb6f1bf2b9",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
