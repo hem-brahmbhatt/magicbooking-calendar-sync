@@ -1,0 +1,41 @@
+scripts/build_lambda.sh
+  s_d59bccb45d3e90::t_dc21f4af5fa61a 1-13
+infra/cloudwatch.tf
+  s_42b655f071e05a::t_3b5e055de45804 1-32
+infra/eventbridge.tf
+  s_42b655f071e05a::t_1709c018c8934b 1-42
+infra/lambda.tf
+  s_42b655f071e05a::t_f84bef3a745214 1-60
+infra/main.tf
+  s_42b655f071e05a::t_b817db4c0ec8c1 1-17
+infra/outputs.tf
+  s_42b655f071e05a::t_0b6ff477caf898 1-7
+infra/ssm.tf
+  s_42b655f071e05a::t_23c690046eede6 1-22
+infra/variables.tf
+  s_42b655f071e05a::t_290a814bc0d043 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e61005b70eef1e1db0d31315ae83fc6b513a4f81",
+  "prompts": {},
+  "sessions": {
+    "s_42b655f071e05a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a3b6101cb6f1bf2b9",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    },
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
