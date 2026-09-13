@@ -1,0 +1,14 @@
+README.md
+  h_43c4baa60ae38f 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "e7de094f2a761b78b52d5e60cad9f1c03eb7997e",
+  "prompts": {},
+  "humans": {
+    "h_43c4baa60ae38f": {
+      "author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
