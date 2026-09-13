@@ -1,0 +1,33 @@
+tests/fixtures/bookings_page_sample.html
+  s_d59bccb45d3e90::t_9097d2687b545b 1-470
+src/magicbooking_sync/parser.py
+  s_ddf64952ca0906::t_85b13b3ec5974d 1-74
+src/magicbooking_sync/portal_client.py
+  s_ddf64952ca0906::t_32f368d13adc6d 8-9,79-137
+tests/test_parser.py
+  s_ddf64952ca0906::t_f41123f90bf81c 1-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ea398d0d5c1f2dd0512eafdde0467a51284007f1",
+  "prompts": {},
+  "sessions": {
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    },
+    "s_ddf64952ca0906": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ac519b24b81c31b63",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
