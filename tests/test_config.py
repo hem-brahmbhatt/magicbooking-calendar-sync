@@ -40,7 +40,13 @@ def test_load_config_falls_back_to_ssm_when_env_vars_missing(monkeypatch):
                 ]
             }
 
+    # Ensure complete isolation: delete all SSM-backed env vars to force SSM fallback
     monkeypatch.delenv("MAGICBOOKING_USERNAME", raising=False)
+    monkeypatch.delenv("MAGICBOOKING_PASSWORD", raising=False)
+    monkeypatch.delenv("GOOGLE_OAUTH_CLIENT_ID", raising=False)
+    monkeypatch.delenv("GOOGLE_OAUTH_CLIENT_SECRET", raising=False)
+    monkeypatch.delenv("GOOGLE_OAUTH_REFRESH_TOKEN", raising=False)
+    monkeypatch.delenv("GOOGLE_CALENDAR_ID", raising=False)
     monkeypatch.setenv("MAGICBOOKING_BASE_URL", "https://hurstprimary.magicbooking.co.uk")
 
     import magicbooking_sync.config as config_module
