@@ -15,4 +15,10 @@ pip install -r requirements.txt -t build/ --no-cache-dir \
     --only-binary=:all:
 cp -r src/magicbooking_sync build/
 
+# Smoke test: verify the packaged artifact can actually import the handler
+# module (and therefore all its dependencies) before it gets zipped and
+# deployed. This is the exact class of bug that let a missing `requests`
+# dependency ship to production undetected.
+( cd build && python3 -c "import magicbooking_sync.handler" )
+
 echo "Lambda build artifact ready in build/"

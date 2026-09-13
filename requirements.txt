@@ -1,5 +1,13 @@
 httpx>=0.27
 beautifulsoup4>=4.12
+# lxml: used as the parser backend for BeautifulSoup(html, "lxml") in
+# parser.py — only referenced as a string, so static "unused dependency"
+# analysis won't see it's actually required. Do not remove.
 lxml>=5.2
 google-auth>=2.29
 requests>=2.31
+# NOTE: boto3 is intentionally NOT listed here even though config.py
+# imports it (for SSM Parameter Store access) — AWS Lambda's python3.12
+# managed runtime provides boto3/botocore pre-installed. A future
+# "remove unused deps" pass should not add it here without also
+# reconsidering package size.
