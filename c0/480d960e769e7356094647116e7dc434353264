@@ -1,0 +1,19 @@
+tests/test_config.py
+  s_9f02012ed9a2d0::t_df408302935034 43,45-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c0480d960e769e7356094647116e7dc434353264",
+  "prompts": {},
+  "sessions": {
+    "s_9f02012ed9a2d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a6bb91e54a668ee86",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
