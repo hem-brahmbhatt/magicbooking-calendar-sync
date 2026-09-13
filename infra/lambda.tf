@@ -4,6 +4,10 @@ data "archive_file" "lambda_zip" {
   output_path = "${path.module}/lambda.zip"
 }
 
+data "aws_kms_alias" "ssm" {
+  name = "alias/aws/ssm"
+}
+
 resource "aws_iam_role" "lambda_exec" {
   name = "magicbooking-calendar-sync-lambda"
 
@@ -32,7 +36,7 @@ resource "aws_iam_role_policy" "lambda_exec" {
       {
         Effect   = "Allow"
         Action   = ["kms:Decrypt"]
-        Resource = "arn:aws:kms:${var.aws_region}:*:alias/aws/ssm"
+        Resource = data.aws_kms_alias.ssm.target_key_arn
       },
       {
         Effect = "Allow"
