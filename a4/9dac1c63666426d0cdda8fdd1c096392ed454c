@@ -1,0 +1,19 @@
+README.md
+  s_3c7ba23d53cb32::t_af48b6ef87ff70 2-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "a49dac1c63666426d0cdda8fdd1c096392ed454c",
+  "prompts": {},
+  "sessions": {
+    "s_3c7ba23d53cb32": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a2af4d46dda600dce",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
