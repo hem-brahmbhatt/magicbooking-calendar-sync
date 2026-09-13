@@ -1,0 +1,19 @@
+infra/terraform-deploy-iam-policy.json
+  s_d59bccb45d3e90::t_201ec3f7d80eae 1-160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "c2bf900021035630c514eed249fe5b23a18991ba",
+  "prompts": {},
+  "sessions": {
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
