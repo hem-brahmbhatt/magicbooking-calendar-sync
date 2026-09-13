@@ -1,0 +1,19 @@
+docs/superpowers/specs/2026-09-13-magicbooking-calendar-sync-design.md
+  s_d59bccb45d3e90::t_72647cdb204b33 1-182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "78cc8c9651bf110f3e466b1d94c00bbe2ca9fa1f",
+  "prompts": {},
+  "sessions": {
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
