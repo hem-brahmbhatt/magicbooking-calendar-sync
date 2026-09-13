@@ -1,0 +1,1 @@
+# magicbooking-calendar-sync
