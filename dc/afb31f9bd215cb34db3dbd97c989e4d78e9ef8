@@ -1,0 +1,21 @@
+pyproject.toml
+  s_d59bccb45d3e90::t_4d561ad21fae0b 10
+requirements.txt
+  s_d59bccb45d3e90::t_bd6fd1b99a389b 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "dcafb31f9bd215cb34db3dbd97c989e4d78e9ef8",
+  "prompts": {},
+  "sessions": {
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
