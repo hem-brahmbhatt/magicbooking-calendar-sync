@@ -1,0 +1,19 @@
+scripts/build_lambda.sh
+  s_d59bccb45d3e90::t_be8f89528f3562 22-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "efc64ce7077cfc3db182aef15f099024e4ec991e",
+  "prompts": {},
+  "sessions": {
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
