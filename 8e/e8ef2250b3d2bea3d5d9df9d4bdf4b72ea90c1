@@ -1,0 +1,21 @@
+requirements.txt
+  s_8ae43caf065a7c::t_3c2f7c7f0de213 3-5,9-13
+scripts/build_lambda.sh
+  s_8ae43caf065a7c::t_6d44b6ea1c6aa4 18-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "8ee8ef2250b3d2bea3d5d9df9d4bdf4b72ea90c1",
+  "prompts": {},
+  "sessions": {
+    "s_8ae43caf065a7c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-adb049bdd6939ac04",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
