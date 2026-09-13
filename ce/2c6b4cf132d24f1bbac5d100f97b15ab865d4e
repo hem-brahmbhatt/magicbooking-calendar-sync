@@ -1,0 +1,21 @@
+docs/superpowers/notes/google-setup.md
+  s_a3d443890e4476::t_b0af0573fec935 1-103
+scripts/google_oauth_setup.py
+  s_a3d443890e4476::t_e05b7eaf997f79 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ce2c6b4cf132d24f1bbac5d100f97b15ab865d4e",
+  "prompts": {},
+  "sessions": {
+    "s_a3d443890e4476": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-aaa963558af7c6eab",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
