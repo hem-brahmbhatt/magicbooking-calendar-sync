@@ -1,0 +1,21 @@
+src/magicbooking_sync/parser.py
+  s_ddf64952ca0906::t_beec7a105669a8 15-24,34-39,59-63,95-99
+tests/test_parser.py
+  s_ddf64952ca0906::t_ec10bea25fc046 70-112
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "b6175d1de58fe9f66bbb717d78da820fd72aaf53",
+  "prompts": {},
+  "sessions": {
+    "s_ddf64952ca0906": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ac519b24b81c31b63",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
