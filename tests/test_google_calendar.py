@@ -69,6 +69,83 @@ def test_list_synced_events_parses_response():
     ]
 
 
+def test_list_synced_events_follows_next_page_token():
+    call_count = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        call_count["n"] += 1
+        if "pageToken" not in str(request.url):
+            return httpx.Response(
+                200,
+                json={
+                    "items": [
+                        {
+                            "id": "evt-1",
+                            "extendedProperties": {
+                                "private": {
+                                    "source": "magicbooking",
+                                    "bookingId": "abc123",
+                                    "date": "2026-09-15",
+                                    "sessionName": "Breakfast Club",
+                                    "childName": "Alex",
+                                }
+                            },
+                            "start": {"dateTime": "2026-09-15T08:00:00+01:00"},
+                            "end": {"dateTime": "2026-09-15T08:30:00+01:00"},
+                        }
+                    ],
+                    "nextPageToken": "page-2-token",
+                },
+            )
+        assert "page-2-token" in str(request.url)
+        return httpx.Response(
+            200,
+            json={
+                "items": [
+                    {
+                        "id": "evt-2",
+                        "extendedProperties": {
+                            "private": {
+                                "source": "magicbooking",
+                                "bookingId": "def456",
+                                "date": "2026-09-16",
+                                "sessionName": "After School Club",
+                                "childName": "Sam",
+                            }
+                        },
+                        "start": {"dateTime": "2026-09-16T15:00:00+01:00"},
+                        "end": {"dateTime": "2026-09-16T16:00:00+01:00"},
+                    }
+                ]
+            },
+        )
+
+    client = _client_with(handler)
+    events = client.list_synced_events()
+
+    assert call_count["n"] == 2
+    assert events == [
+        SyncedEvent(
+            google_event_id="evt-1",
+            booking_id="abc123",
+            date="2026-09-15",
+            start_time="08:00",
+            end_time="08:30",
+            session_name="Breakfast Club",
+            child_name="Alex",
+        ),
+        SyncedEvent(
+            google_event_id="evt-2",
+            booking_id="def456",
+            date="2026-09-16",
+            start_time="15:00",
+            end_time="16:00",
+            session_name="After School Club",
+            child_name="Sam",
+        ),
+    ]
+
+
 def test_create_event_posts_expected_body():
     captured = {}
 

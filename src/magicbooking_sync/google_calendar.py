@@ -50,31 +50,43 @@ class GoogleCalendarClient:
         return {"Authorization": f"Bearer {self._access_token_provider()}"}
 
     def list_synced_events(self) -> list[SyncedEvent]:
-        response = self._http.get(
-            f"{CALENDAR_API_BASE}/calendars/{self._config.calendar_id}/events",
-            headers=self._headers(),
-            params={
+        events = []
+        page_token = None
+        while True:
+            params = {
                 "privateExtendedProperty": "source=magicbooking",
                 "singleEvents": "true",
-            },
-        )
-        response.raise_for_status()
-        items = response.json().get("items", [])
+            }
+            if page_token:
+                params["pageToken"] = page_token
 
-        events = []
-        for item in items:
-            props = item["extendedProperties"]["private"]
-            events.append(
-                SyncedEvent(
-                    google_event_id=item["id"],
-                    booking_id=props["bookingId"],
-                    date=props["date"],
-                    start_time=_time_to_hhmm(item["start"]["dateTime"]),
-                    end_time=_time_to_hhmm(item["end"]["dateTime"]),
-                    session_name=props["sessionName"],
-                    child_name=props["childName"],
-                )
+            response = self._http.get(
+                f"{CALENDAR_API_BASE}/calendars/{self._config.calendar_id}/events",
+                headers=self._headers(),
+                params=params,
             )
+            response.raise_for_status()
+            payload = response.json()
+            items = payload.get("items", [])
+
+            for item in items:
+                props = item["extendedProperties"]["private"]
+                events.append(
+                    SyncedEvent(
+                        google_event_id=item["id"],
+                        booking_id=props["bookingId"],
+                        date=props["date"],
+                        start_time=_time_to_hhmm(item["start"]["dateTime"]),
+                        end_time=_time_to_hhmm(item["end"]["dateTime"]),
+                        session_name=props["sessionName"],
+                        child_name=props["childName"],
+                    )
+                )
+
+            page_token = payload.get("nextPageToken")
+            if not page_token:
+                break
+
         return events
 
     def _event_body(self, booking: Booking) -> dict:
