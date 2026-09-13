@@ -5,6 +5,8 @@ of https://hurstprimary.magicbooking.co.uk/Identity/Account/Login (an
 ASP.NET Core Identity Razor Pages login form). See
 docs/superpowers/notes/login-discovery.md for the full discovery notes.
 """
+import re
+
 import httpx
 from bs4 import BeautifulSoup
 
@@ -74,3 +76,62 @@ def login(base_url: str, username: str, password: str) -> httpx.Client:
         )
 
     return client
+
+
+# Confirmed against the real, live portal (see login-discovery.md's sibling
+# notes on bookings-page discovery): the nav's "Bookings" link goes to
+# /Bookings, which renders a `#bookingsIndexBookingsTable` — one row per
+# *booking transaction*, each spanning a date range (e.g. a whole term
+# booked in one go) with no time-of-day info at all. The actual per-session
+# occurrences (the individual dated/timed sessions a calendar sync needs)
+# only appear on each booking's own detail page,
+# /Booking/ViewBooking?bookingId=<id>, in a `#viewDatesBookedTable` — one
+# row per real calendar occurrence (date, day, "HH:MM - HH:MM" time range,
+# session name, child, status, cost).
+#
+# So fetch_bookings_html does two rounds of real requests: it reads the
+# index page to discover every booking id, then fetches each booking's
+# detail page and pulls out just its #viewDatesBookedTable, concatenating
+# them into one combined HTML document. This keeps the public shape simple
+# (one HTML string in, `parse_bookings` parses it) while returning genuine
+# per-session data instead of the coarser date-range summary.
+BOOKINGS_PATH = "/Bookings"
+BOOKING_DETAIL_PATH = "/Booking/ViewBooking"
+DATES_BOOKED_TABLE_ID = "viewDatesBookedTable"
+
+_BOOKING_ID_RE = re.compile(r"bookingId=(\d+)")
+
+
+def fetch_bookings_html(client: httpx.Client) -> str:
+    """Fetch the HTML of the parent's booked-sessions, as a single document.
+
+    `client` must already be authenticated (see `login()`). Internally this
+    fetches the bookings index page to discover every booking id, then
+    fetches each booking's detail page and combines their per-session
+    "dates booked" tables into one HTML string for `parser.parse_bookings`
+    to consume. Real markup throughout — nothing synthesized.
+    """
+    index_response = client.get(BOOKINGS_PATH)
+    index_response.raise_for_status()
+
+    soup = BeautifulSoup(index_response.text, "lxml")
+    booking_ids: list[str] = []
+    seen: set[str] = set()
+    for link in soup.find_all("a", href=True):
+        match = _BOOKING_ID_RE.search(link["href"])
+        if match and match.group(1) not in seen:
+            seen.add(match.group(1))
+            booking_ids.append(match.group(1))
+
+    tables_html: list[str] = []
+    for booking_id in booking_ids:
+        detail_response = client.get(
+            BOOKING_DETAIL_PATH, params={"bookingId": booking_id}
+        )
+        detail_response.raise_for_status()
+        detail_soup = BeautifulSoup(detail_response.text, "lxml")
+        table = detail_soup.find("table", id=DATES_BOOKED_TABLE_ID)
+        if table is not None:
+            tables_html.append(str(table))
+
+    return "<html><body>\n" + "\n".join(tables_html) + "\n</body></html>"
