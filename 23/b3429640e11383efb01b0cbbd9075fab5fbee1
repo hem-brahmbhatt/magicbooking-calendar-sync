@@ -1,0 +1,45 @@
+src/magicbooking_calendar_sync.egg-info/PKG-INFO
+  s_d59bccb45d3e90::t_e02b59094bd689 1-11
+src/magicbooking_calendar_sync.egg-info/SOURCES.txt
+  s_d59bccb45d3e90::t_016f85da94e63f 1-9
+src/magicbooking_calendar_sync.egg-info/dependency_links.txt
+  s_d59bccb45d3e90::t_a8917341238841 1
+src/magicbooking_calendar_sync.egg-info/requires.txt
+  s_d59bccb45d3e90::t_9e7fdbe8570bee 1-8
+src/magicbooking_calendar_sync.egg-info/top_level.txt
+  s_d59bccb45d3e90::t_b8cd207918e2b1 1
+.gitignore
+  s_4b8142f3d1557e::t_363dfb019d8c8b 1-12
+pyproject.toml
+  s_4b8142f3d1557e::t_5a26139d71fe71 1-20
+requirements.txt
+  s_4b8142f3d1557e::t_eb5d81c575bb3d 1-4
+tests/test_models.py
+  s_4b8142f3d1557e::t_a6be70a293647c 1-52
+src/magicbooking_sync/models.py
+  s_4b8142f3d1557e::t_b3a0fa065ac5ef 1-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "23b3429640e11383efb01b0cbbd9075fab5fbee1",
+  "prompts": {},
+  "sessions": {
+    "s_4b8142f3d1557e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a898341b8197ee8ed",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    },
+    "s_d59bccb45d3e90": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8b5f3ec9-27ac-42db-a1e0-5928f43410c1",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
