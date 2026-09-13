@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-src/magicbooking_calendar_sync.egg-info/PKG-INFO
-src/magicbooking_calendar_sync.egg-info/SOURCES.txt
-src/magicbooking_calendar_sync.egg-info/dependency_links.txt
-src/magicbooking_calendar_sync.egg-info/requires.txt
-src/magicbooking_calendar_sync.egg-info/top_level.txt
-src/magicbooking_sync/__init__.py
-tests/test_models.py
