@@ -1,0 +1,21 @@
+src/magicbooking_sync/google_calendar.py
+  s_5bd78eb6427d04::t_6148d9084bb3e2 1-123
+tests/test_google_calendar.py
+  s_5bd78eb6427d04::t_3b9c6617bc805e 1-192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "7be12a5013a5ceef79bc52f26a39d700cc365e20",
+  "prompts": {},
+  "sessions": {
+    "s_5bd78eb6427d04": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-a202a5ae609543e3e",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
