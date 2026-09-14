@@ -1,0 +1,19 @@
+.gitignore
+  s_602c102e952f3d::t_cc33d4acabf0c7 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "2a8ef77765fa046591e052d7a9e46b3ff1636bc3",
+  "prompts": {},
+  "sessions": {
+    "s_602c102e952f3d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01eb68a5-83ce-4531-9146-6261dfdcf4dc",
+        "model": "unknown"
+      },
+      "human_author": "Hem Brahmbhatt <hem.brahmbhatt@gousto.co.uk>"
+    }
+  }
+}
